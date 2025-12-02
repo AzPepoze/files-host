@@ -9,8 +9,11 @@ services:
              - .env
           environment:
              - NGINX_HOST=${DOMAIN}
+             - USERNAME=${USERNAME}
+             - PASSWORD=${PASSWORD}
           volumes:
              - ./nginx/templates:/etc/nginx/templates
+             - ./nginx/create_htpasswd.sh:/docker-entrypoint.d/99-create-htpasswd.sh
              - ./files:/usr/share/nginx/html
 
      cloudflared:
