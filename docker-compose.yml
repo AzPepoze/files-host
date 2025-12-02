@@ -1,0 +1,44 @@
+services:
+     nginx:
+          image: nginx:alpine
+          container_name: nginx-files-server
+          restart: always
+          ports:
+             - "80:80"
+          env_file:
+             - .env
+          environment:
+             - NGINX_HOST=${DOMAIN}
+          volumes:
+             - ./nginx/templates:/etc/nginx/templates
+             - ./files:/usr/share/nginx/html
+
+     cloudflared:
+          image: cloudflare/cloudflared:latest
+          container_name: cloudflared
+          restart: always
+          environment:
+             - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+          command: tunnel run
+          volumes:
+             - ./cloudflared:/etc/cloudflared
+
+     qbittorrent:
+          image: lscr.io/linuxserver/qbittorrent:latest
+          container_name: qbittorrent
+          restart: always
+          environment:
+             - PUID=1000
+             - PGID=1000
+             - TZ=Asia/Bangkok
+             - WEBUI_PORT=8080
+             - TORRENTING_PORT=6881
+             - QBITTORRENT_USERNAME=${QBITTORRENT_USERNAME}
+             - QBITTORRENT_PASSWORD=${QBITTORRENT_PASSWORD}
+          ports:
+             - "8080:8080"
+             - "6881:6881"
+             - "6881:6881/udp"
+          volumes:
+             - ./qbittorrent/config:/config
+             - ./files:/downloads
