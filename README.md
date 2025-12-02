@@ -34,6 +34,8 @@ Before running this project, you need to set up a Cloudflare Tunnel to expose yo
    * `CLOUDFLARE_TUNNEL_TOKEN`: Paste the Cloudflare Tunnel token you copied earlier.
    * `QBITTORRENT_USERNAME`: Desired username for Qbittorrent (see note below).
    * `QBITTORRENT_PASSWORD`: Desired password for Qbittorrent.
+   * `USERNAME`: Username for Nginx Basic Authentication.
+   * `PASSWORD`: Password for Nginx Basic Authentication.
 
    > **Note on Qbittorrent Credentials**: The `linuxserver/qbittorrent` image usually generates a random password on the first run which acts as a temporary password. Check the container logs (`docker-compose logs qbittorrent`) to find it. You can then change it in the Web UI. The variables in `.env` are provided for reference or if you choose to use a custom startup script/image.
    >
