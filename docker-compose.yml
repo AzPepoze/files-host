@@ -51,5 +51,6 @@ services:
              - ./files:/srv
              - ./filebrowser/filebrowser.db:/database.db
              - ./filebrowser/settings.json:/config/settings.json
+          command: -c /config/settings.json
           environment:
              - FB_BASEURL=/manage
