@@ -9,6 +9,13 @@ jobs:
           runs-on: self-hosted
 
           steps:
+             - name: Fix Permissions (Pre-cleanup)
+               run: |
+                 # Use Docker to chown files back to the current runner user
+                 USER_ID=$(id -u)
+                 GROUP_ID=$(id -g)
+                 docker run --rm -v $(pwd):/work alpine chown -R $USER_ID:$GROUP_ID /work || true
+
              - name: Checkout code
                uses: actions/checkout@v3
 
