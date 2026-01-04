@@ -7,12 +7,8 @@ services:
              - "80:80"
           env_file:
              - .env
-          environment:
-             - USERNAME=${USERNAME}
-             - PASSWORD=${PASSWORD}
           volumes:
              - ./nginx/templates:/etc/nginx/templates
-             - ./nginx/create_htpasswd.sh:/docker-entrypoint.d/99-create-htpasswd.sh
              - ./files:/usr/share/nginx/html
 
      cloudflared:
@@ -35,6 +31,8 @@ services:
              - TZ=Asia/Bangkok
              - WEBUI_PORT=8080
              - TORRENTING_PORT=6881
+             - QBITTORRENT_USERNAME=${USERNAME}
+             - QBITTORRENT_PASSWORD=${PASSWORD}
           ports:
              - "6881:6881"
              - "6881:6881/udp"
@@ -51,6 +49,5 @@ services:
              - ./files:/srv
              - ./filebrowser/filebrowser.db:/database.db
              - ./filebrowser/settings.json:/config/settings.json
-          command: -c /config/settings.json
           environment:
              - FB_BASEURL=/manage

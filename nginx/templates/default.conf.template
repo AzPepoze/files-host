@@ -13,9 +13,6 @@ server {
 
     # Protected: File Manager
     location /manage {
-        auth_basic "Restricted Access";
-        auth_basic_user_file /etc/nginx/.htpasswd;
-        
         proxy_pass http://filebrowser:80;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -26,9 +23,6 @@ server {
 
     # Protected: Downloader (qBittorrent)
     location /download {
-        auth_basic "Restricted Access";
-        auth_basic_user_file /etc/nginx/.htpasswd;
-
         proxy_pass http://qbittorrent:8080/;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
