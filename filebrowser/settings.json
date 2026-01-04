@@ -1,0 +1,11 @@
+{
+	"port": 80,
+	"baseURL": "/manage",
+	"address": "",
+	"log": "stdout",
+	"database": "/database.db",
+	"root": "/srv",
+	"auth": {
+		"method": "noauth"
+	}
+}
