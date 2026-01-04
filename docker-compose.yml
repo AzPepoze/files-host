@@ -5,8 +5,6 @@ services:
           restart: always
           ports:
              - "80:80"
-          env_file:
-             - .env
           volumes:
              - ./nginx/templates:/etc/nginx/templates
              - ./files:/usr/share/nginx/html
@@ -34,6 +32,7 @@ services:
              - QBITTORRENT_USERNAME=${USERNAME}
              - QBITTORRENT_PASSWORD=${PASSWORD}
           ports:
+             - "8080:8080"
              - "6881:6881"
              - "6881:6881/udp"
           volumes:
@@ -45,6 +44,8 @@ services:
           container_name: filebrowser
           restart: always
           user: 1000:1000
+          ports:
+             - "8082:80"
           volumes:
              - ./files:/srv
              - ./filebrowser/filebrowser.db:/database.db
